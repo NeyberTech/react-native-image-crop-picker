@@ -14,6 +14,10 @@ iOS/Android image picker with support for camera, video, configurable compressio
 <img width=200 title="iOS Multiple Pick" src="https://github.com/ivpusic/react-native-image-crop-picker/blob/master/images/ios_multiple_pick.png">
 </p>
 
+## Important note
+
+If you are using react-native >= 0.60 use react-native-image-crop-picker version >= 0.25.0. Otherwise use version < 0.25.0.
+
 ## Usage
 
 Import library
@@ -132,6 +136,8 @@ ImagePicker.clean().then(() => {
 | useFrontCamera                          |           bool (default false)           | Whether to default to the front/'selfie' camera when opened |
 | compressVideoPreset         |      string (default MediumQuality)      | Choose which preset will be used for video compression |
 | bitrate (ios only)                      |      number                              | Bitrate which will be used for video compression. When bitrate and compressVideoPreset exist at the same time, bitrate has higher priority. |
+| useFrontCamera                          |           bool (default false)           | Whether to default to the front/'selfie' camera when opened. Please note that not all Android devices handle this parameter, see [issue #1058](https://github.com/ivpusic/react-native-image-crop-picker/issues/1058)|
+| compressVideoPreset (ios only)          |      string (default MediumQuality)      | Choose which preset will be used for video compression |
 | compressImageMaxWidth                   |          number (default none)           | Compress image with maximum width        |
 | compressImageMaxHeight                  |          number (default none)           | Compress image with maximum height       |
 | compressImageQuality                    |            number (default 1 (Android)/0.8 (iOS))            | Compress image with quality (from 0 to 1, where 1 is best quality). On iOS, values larger than 0.8 don't produce a noticable quality increase in most images, while a value of 0.8 will reduce the file size by about half or less compared to a value of 1. |
@@ -181,6 +187,17 @@ npm i react-native-image-crop-picker --save
 ## Step 2
 
 ### iOS
+
+NOTE: If you are using react-native >= 0.60 autolinking, all you have to do is:
+
+- Install the library via NPM or Yarm
+- Run the following:
+```
+cd ios
+pod install
+```
+
+Then the library will be successfully linked.
 
 #### - If you use Cocoapods which is highly recommended:
 
@@ -240,7 +257,17 @@ After this use `ios/<project_name>.xcworkspace`. **Do not use** `ios/<project_na
 react-native link react-native-image-crop-picker
 ```
 
+#### Dark Mode
+
+To enable support for dark mode, please add local 'QBImagePickerController' pod to your Podfile.
+
+```
+pod 'QBImagePickerController', :path => '../node_modules/react-native-image-crop-picker/ios/QBImagePicker/QBImagePickerController.podspec'
+```
+
 ### Android
+
+NOTE: If you are using react-native >= 0.60 autolinking, you can skip this step.
 
 ```bash
 react-native link react-native-image-crop-picker
@@ -298,7 +325,7 @@ allprojects {
       maven { url 'https://maven.google.com' }
 
       // ADD THIS
-      maven { url "https://jitpack.io" }
+      maven { url "https://www.jitpack.io" }
     }
 }
 ```
