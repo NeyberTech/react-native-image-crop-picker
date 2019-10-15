@@ -183,12 +183,13 @@ class Compression {
                 protected String doInBackground(String... paths) {
                     String filePath = null;
                     try {
-                        if (finalWidth != null && finalHeight != null && finalBitrate != null) {
-                            Log.d("image-crop-picker", "Compressing Video with bitrate " + finalBitrate);
-                            filePath = SiliCompressor.with(context).compressVideo(paths[0], paths[1], finalWidth, finalHeight, finalBitrate);
-                        } else {
-                            filePath = SiliCompressor.with(context).compressVideo(paths[0], paths[1]);
-                        }
+                        // if (finalWidth != null && finalHeight != null && finalBitrate != null) {
+                        //     Log.d("image-crop-picker", "Compressing Video with bitrate " + finalBitrate);
+                        //     filePath = SiliCompressor.with(context).compressVideo(paths[0], paths[1], finalWidth, finalHeight, finalBitrate);
+                        // } else {
+                        //     filePath = SiliCompressor.with(context).compressVideo(paths[0], paths[1]);
+                        // }
+                        filePath = SiliCompressor.with(context).compressVideo(paths[0], paths[1]);
 
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
