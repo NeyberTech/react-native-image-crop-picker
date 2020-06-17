@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.media.MediaMetadataRetriever;
 import android.os.AsyncTask;
 import android.os.Environment;
 import android.util.Log;
@@ -137,8 +138,11 @@ class Compression {
         // todo: video compression
         // failed attempt 1: ffmpeg => slow and licensing issues
 
-        int width = bmp.getWidth();
-        int height = bmp.getHeight();
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(originalVideo);
+        int width = Integer.valueOf(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH));
+        int height = Integer.valueOf(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT));
+        int rotation = Integer.valueOf(retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION));
 
         if (options == null) {
             promise.resolve(originalVideo);
@@ -183,7 +187,7 @@ class Compression {
                 protected String doInBackground(String... paths) {
                     String filePath = null;
                     try {
-                        filePath = SiliCompressor.with(context).compressVideo(paths[0], paths[1], 0, 0, finalBitrate);
+                        filePath = SiliCompressor.with(context).compressVideo(paths[0], paths[1], finalWidth, finalHeight, finalBitrate);
                     } catch (URISyntaxException e) {
                         e.printStackTrace();
                     }
