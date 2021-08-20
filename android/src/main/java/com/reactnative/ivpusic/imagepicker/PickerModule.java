@@ -88,6 +88,7 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
     private String cropperStatusBarColor = DEFAULT_TINT;
     private String cropperToolbarColor = DEFAULT_TINT;
     private String cropperToolbarTitle = null;
+    private String cropperToolbarWidgetColor = null;
 
     //Light Blue 500
     private final String DEFAULT_WIDGET_COLOR = "#03A9F4";
@@ -610,20 +611,20 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
     }
 
     private void configureCropperColors(UCrop.Options options) {
-        int activeWidgetColor = Color.parseColor(cropperActiveWidgetColor);
-        int toolbarColor = Color.parseColor(cropperToolbarColor);
-        int statusBarColor = Color.parseColor(cropperStatusBarColor);
-        options.setToolbarColor(toolbarColor);
-        options.setStatusBarColor(statusBarColor);
-        if (activeWidgetColor == Color.parseColor(DEFAULT_TINT)) {
-            /*
-            Default tint is grey => use a more flashy color that stands out more as the call to action
-            Here we use 'Light Blue 500' from https://material.google.com/style/color.html#color-color-palette
-            */
-            options.setActiveWidgetColor(Color.parseColor(DEFAULT_WIDGET_COLOR));
-        } else {
-            //If they pass a custom tint color in, we use this for everything
-            options.setActiveWidgetColor(activeWidgetColor);
+        if (cropperActiveWidgetColor != null) {
+            options.setActiveControlsWidgetColor(Color.parseColor(cropperActiveWidgetColor));
+        }
+
+        if (cropperToolbarColor != null) {
+            options.setToolbarColor(Color.parseColor(cropperToolbarColor));
+        }
+
+        if (cropperStatusBarColor != null) {
+            options.setStatusBarColor(Color.parseColor(cropperStatusBarColor));
+        }
+
+        if (cropperToolbarWidgetColor != null) {
+            options.setToolbarWidgetColor(Color.parseColor(cropperToolbarWidgetColor));
         }
     }
 
