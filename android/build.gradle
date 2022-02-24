@@ -21,7 +21,7 @@ android {
 
 dependencies {
     implementation 'com.facebook.react:react-native:+'
-    implementation 'com.github.yalantis:ucrop:2.2.6-native'
+    compileOnly 'com.github.yalantis:ucrop:2.2.6-native'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.iceteck.silicompressorr:silicompressor:2.2.3'
     implementation ('com.googlecode.mp4parser:isoparser:1.0.6') {
