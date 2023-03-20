@@ -263,13 +263,11 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
         // }
 
         // // all permissions granted
-        // try {
-        //     callback.call();
-        // } catch (Exception e) {
-        //     promise.reject(E_CALLBACK_ERROR, "Unknown error", e);
-        // }
-
-        callback.call();
+        try {
+            callback.call();
+        } catch (Exception e) {
+            promise.reject(E_CALLBACK_ERROR, "Unknown error", e);
+        }
     }
 
     @ReactMethod
