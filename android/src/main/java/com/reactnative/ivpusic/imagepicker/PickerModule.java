@@ -224,50 +224,52 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
 
     private void permissionsCheck(final Activity activity, final Promise promise, final List<String> requiredPermissions, final Callable<Void> callback) {
 
-        List<String> missingPermissions = new ArrayList<>();
+        // List<String> missingPermissions = new ArrayList<>();
 
-        for (String permission : requiredPermissions) {
-            int status = ActivityCompat.checkSelfPermission(activity, permission);
-            if (status != PackageManager.PERMISSION_GRANTED) {
-                missingPermissions.add(permission);
-            }
-        }
+        // for (String permission : requiredPermissions) {
+        //     int status = ActivityCompat.checkSelfPermission(activity, permission);
+        //     if (status != PackageManager.PERMISSION_GRANTED) {
+        //         missingPermissions.add(permission);
+        //     }
+        // }
 
-        if (!missingPermissions.isEmpty()) {
+        // if (!missingPermissions.isEmpty()) {
 
-            ((PermissionAwareActivity) activity).requestPermissions(missingPermissions.toArray(new String[missingPermissions.size()]), 1, new PermissionListener() {
+        //     ((PermissionAwareActivity) activity).requestPermissions(missingPermissions.toArray(new String[missingPermissions.size()]), 1, new PermissionListener() {
 
-                @Override
-                public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-                    if (requestCode == 1) {
+        //         @Override
+        //         public boolean onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        //             if (requestCode == 1) {
 
-                        for (int grantResult : grantResults) {
-                            if (grantResult == PackageManager.PERMISSION_DENIED) {
-                                promise.reject(E_PERMISSIONS_MISSING, "Required permission missing");
-                                return true;
-                            }
-                        }
+        //                 for (int grantResult : grantResults) {
+        //                     if (grantResult == PackageManager.PERMISSION_DENIED) {
+        //                         promise.reject(E_PERMISSIONS_MISSING, "Required permission missing");
+        //                         return true;
+        //                     }
+        //                 }
 
-                        try {
-                            callback.call();
-                        } catch (Exception e) {
-                            promise.reject(E_CALLBACK_ERROR, "Unknown error", e);
-                        }
-                    }
+        //                 try {
+        //                     callback.call();
+        //                 } catch (Exception e) {
+        //                     promise.reject(E_CALLBACK_ERROR, "Unknown error", e);
+        //                 }
+        //             }
 
-                    return true;
-                }
-            });
+        //             return true;
+        //         }
+        //     });
 
-            return;
-        }
+        //     return;
+        // }
 
-        // all permissions granted
-        try {
-            callback.call();
-        } catch (Exception e) {
-            promise.reject(E_CALLBACK_ERROR, "Unknown error", e);
-        }
+        // // all permissions granted
+        // try {
+        //     callback.call();
+        // } catch (Exception e) {
+        //     promise.reject(E_CALLBACK_ERROR, "Unknown error", e);
+        // }
+
+        callback.call();
     }
 
     @ReactMethod
