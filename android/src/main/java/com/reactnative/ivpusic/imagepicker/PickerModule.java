@@ -519,6 +519,12 @@ class PickerModule extends ReactContextBaseJavaModule implements ActivityEventLi
                                 video.putString("path", "file://" + videoPath);
                                 video.putString("modificationDate", String.valueOf(modificationDate));
 
+                                MediaMetadataRetriever mmr = new MediaMetadataRetriever();
+                                mmr.setDataSource(videoPath);
+                                Double duration = Double.valueOf(
+                                        mmr.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) / 1000;
+                                video.putDouble("duration", duration);
+
                                 resultCollector.notifySuccess(video);
                             } catch (Exception e) {
                                 resultCollector.notifyProblem(E_NO_IMAGE_DATA_FOUND, e);
